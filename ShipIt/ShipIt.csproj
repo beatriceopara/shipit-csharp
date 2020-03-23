@@ -102,7 +102,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="log4net.config" />
-    <None Include="connections.config" />
+    <None Include="connections.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
