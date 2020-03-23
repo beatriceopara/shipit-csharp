@@ -102,9 +102,7 @@
     <None Include="app.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="connections.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="connections.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>
