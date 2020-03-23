@@ -18,7 +18,18 @@ To run the app via Visual Studio:
 To run the app via Rider:
 
 * Open the `ShipIt.sln` solution by going to `File` -> `Open` -> `Project/Solution`
+* Download .NETFramework 4 Developer Pack
+* You might be prompted with this error in the log:
+* The imported project "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\Microsoft\VisualStudio\v15.0\WebApplications\Microsoft.WebApplication.targets"
+* You might be missing the workload for Web development build tools": `Microsoft.VisualStudio.Workload.WebBuildTools` 
+* To solve Download Visual Studio or VisualStudio Installer
+* You can install it by downloading the build tools installer from here (VS2017) or here (VS2019) then running
+* Alternatively following this: https://stackoverflow.com/questions/44061932/ms-build-2017-microsoft-webapplication-targets-is-missing?noredirect=1&lq=1
+* Change MSBuild by going to `File` -> `Setting` -> `Build/Excecution/Deployment` -> `Toolset and Build` -> `Use MSBuild Version` and choose the location you've saved you're MSBuild
+* It should look something like this example: C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild 
+* For example: C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild 
 * Download and install Microsoft.NETFramework.ReferenceAssemblies 1.0.0 from NuGet
+* Download and install VisualStudio.QualityTools.UnitTestFramework from NuGet
 * Add a connections.config to both the ShipIt and ShipItTest projects, adding a connection string to each e.g.
 ```
 <connectionStrings>
