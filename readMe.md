@@ -12,8 +12,14 @@ Copyright 2010.
 To run the app via Visual Studio:
 
 * Open the `ShipIt.sln` solution by going to `File` -> `Open` -> `Project/Solution`
+* Download and install Microsoft.NETFramework.ReferenceAssemblies 1.0.0 from NuGet
 * Add a connections.config to both the ShipIt and ShipItTest projects, adding a connection string to each e.g.
 
+To run the app via Rider:
+
+* Open the `ShipIt.sln` solution by going to `File` -> `Open` -> `Project/Solution`
+* Download and install Microsoft.NETFramework.ReferenceAssemblies 1.0.0 from NuGet
+* Add a connections.config to both the ShipIt and ShipItTest projects, adding a connection string to each e.g.
 ```
 <connectionStrings>
   <add name="MyPostgres" providerName="System.Data.SqlClient" connectionString="Server=127.0.0.1;Port=5432;Database=ShipItTest;User Id=postgres; Password=password;" />
