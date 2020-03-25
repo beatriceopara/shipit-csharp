@@ -41,7 +41,7 @@ To run the app via Rider:
 * Add a connections.config to both the ShipIt and ShipItTest projects, adding a connection string to each e.g.
 ```
 <connectionStrings>
-  <add name="MyPostgres" providerName="System.Data.SqlClient" connectionString="Server=127.0.0.1;Port=5432;Database=ShipItTest;User Id=postgres; Password=password;" />
+  <add name="MyPostgres" providerName="System.Data.SqlClient" connectionString="Server=127.0.0.1;Port=5432;Database={YourDatabaseName};User Id=postgres; Password=password;" />
 </connectionStrings>
 ```
 

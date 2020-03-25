@@ -7,6 +7,7 @@ using System.Web.UI.WebControls.WebParts;
 using ShipIt.Exceptions;
 using ShipIt.Models.ApiModels;
 using ShipIt.Repositories;
+using ShipIt.Services;
 
 namespace ShipIt.Controllers
 {
@@ -16,32 +17,24 @@ namespace ShipIt.Controllers
 
         private readonly IStockRepository stockRepository;
         private readonly IProductRepository productRepository;
+        private readonly ITrucksService trucksService;
 
-        public OutboundOrderController(IStockRepository stockRepository, IProductRepository productRepository)
+        public OutboundOrderController(IStockRepository stockRepository, IProductRepository productRepository, ITrucksService trucksService)
         {
             this.stockRepository = stockRepository;
             this.productRepository = productRepository;
+            this.trucksService = trucksService;
         }
+        
 
-        public void Post([FromBody]OutboundOrderRequestModel request)
+        public IEnumerable<Truck> Post([FromBody]OutboundOrderRequestModel request)
         {
             log.Info(String.Format("Processing outbound order: {0}", request));
-
-            var gtins = new List<String>();
-            foreach (var orderLine in request.OrderLines)
-            {
-                if (gtins.Contains(orderLine.gtin))
-                {
-                    throw new ValidationException(String.Format("Outbound order request contains duplicate product gtin: {0}", orderLine.gtin));
-                }
-                gtins.Add(orderLine.gtin);
-            }
-
-            var productDataModels = productRepository.GetProductsByGtin(gtins);
-            var products = productDataModels.ToDictionary(p => p.Gtin, p => new Product(p));
-
+            
+            var products = GetProductsFromRequest(request);
             var lineItems = new List<StockAlteration>();
             var productIds = new List<int>();
+            
             var errors = new List<string>();
 
             foreach (var orderLine in request.OrderLines)
@@ -68,7 +61,7 @@ namespace ShipIt.Controllers
             var orderLines = request.OrderLines.ToList();
             errors = new List<string>();
 
-            for (int i = 0; i < lineItems.Count; i++)
+            for (var i = 0; i < lineItems.Count; i++)
             {
                 var lineItem = lineItems[i];
                 var orderLine = orderLines[i];
@@ -94,6 +87,28 @@ namespace ShipIt.Controllers
             }
 
             stockRepository.RemoveStock(request.WarehouseId, lineItems);
+
+            var trucks = trucksService.GetTrucksForOrder(lineItems);
+            
+            return trucks;
+
+        }
+
+
+        private Dictionary<string, Product> GetProductsFromRequest(OutboundOrderRequestModel request)
+        {
+            var gtins = new List<String>();
+            foreach (var orderLine in request.OrderLines)
+            {
+                if (gtins.Contains(orderLine.gtin))
+                {
+                    throw new ValidationException(String.Format("Outbound order request contains duplicate product gtin: {0}", orderLine.gtin));
+                }
+                gtins.Add(orderLine.gtin);
+            }
+
+            var productDataModels = productRepository.GetProductsByGtin(gtins);
+            return productDataModels.ToDictionary(p => p.Gtin, p => new Product(p));
         }
     }
 }

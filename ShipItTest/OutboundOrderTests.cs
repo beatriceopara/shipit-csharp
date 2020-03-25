@@ -8,6 +8,7 @@ using ShipIt.Exceptions;
 using ShipIt.Models.ApiModels;
 using ShipIt.Models.DataModels;
 using ShipIt.Repositories;
+using ShipIt.Services;
 using ShipItTest.Builders;
 
 namespace ShipItTest
@@ -17,12 +18,14 @@ namespace ShipItTest
     {
         OutboundOrderController outboundOrderController = new OutboundOrderController(
             new StockRepository(),
-            new ProductRepository()
-        );
+            new ProductRepository(),
+            new TrucksService(new ProductRepository())
+            );
         StockRepository stockRepository = new StockRepository();
         CompanyRepository companyRepository = new CompanyRepository();
         ProductRepository productRepository = new ProductRepository();
         EmployeeRepository employeeRepository = new EmployeeRepository();
+        TrucksService _trucksService = new TrucksService(new ProductRepository());
 
         private static Employee EMPLOYEE = new EmployeeBuilder().CreateEmployee();
         private static Company COMPANY = new CompanyBuilder().CreateCompany();

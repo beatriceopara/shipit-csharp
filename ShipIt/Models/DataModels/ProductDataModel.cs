@@ -95,6 +95,7 @@ namespace ShipIt.Models.DataModels
             Discontinued = apiModel.Discontinued ? 1 : 0;
             MinimumOrderQuantity = apiModel.MinimumOrderQuantity;
         }
+        
     }
 
 }
