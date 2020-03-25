@@ -9,6 +9,7 @@ using ShipIt.Services;
 
 namespace ShipItTest
 {
+    [TestFixture]
     public class TrucksServiceTest
     {
         private TrucksService _trucksService;

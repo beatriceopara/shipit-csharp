@@ -25,7 +25,7 @@ namespace ShipItTest
         CompanyRepository companyRepository = new CompanyRepository();
         ProductRepository productRepository = new ProductRepository();
         EmployeeRepository employeeRepository = new EmployeeRepository();
-        TrucksService _trucksService = new TrucksService(new ProductRepository());
+        // TrucksService _trucksService = new TrucksService(new ProductRepository());
 
         private static Employee EMPLOYEE = new EmployeeBuilder().CreateEmployee();
         private static Company COMPANY = new CompanyBuilder().CreateCompany();
